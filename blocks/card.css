@@ -6,7 +6,6 @@
 .card__list {
   display: grid;
   justify-content: center;
-  padding-top: 47px;
   list-style-type: none;
   padding-left: 0;
   grid-template-columns: repeat(auto-fit, 282px);
@@ -46,4 +45,9 @@
   width: 21px;
   height: 18px;
   border: none;
+  transition: 0.3s ease-in-out;
+}
+
+.card__like-button:hover {
+  opacity: 0.5;
 }

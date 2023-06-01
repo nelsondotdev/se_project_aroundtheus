@@ -5,6 +5,7 @@
 .header__logo {
   max-width: 173px;
   padding-bottom: 41px;
+  margin-bottom: -0.3em;
 }
 
 .header__divider {
