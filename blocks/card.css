@@ -28,6 +28,7 @@
   white-space: nowrap;
   overflow: hidden;
   line-height: 29px;
+  max-width: 220px;
 }
 
 .card__like-button {
@@ -36,6 +37,7 @@
   height: 18px;
   border: none;
   transition: 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 .card__like-button:hover {

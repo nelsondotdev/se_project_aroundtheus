@@ -12,16 +12,9 @@
   font-size: 18px;
   line-height: 22px;
   color: #545454;
-  max-width: 282px;
 }
 
 @media screen and (max-width: 919px) {
-  .footer {
-    max-width: 581px;
-  }
-}
-
-@media screen and (max-width: 879px) {
   .footer {
     max-width: 581px;
   }
@@ -33,20 +26,9 @@
     padding-top: 48px;
     padding-bottom: 36px;
   }
-}
 
-@media screen and (max-width: 580px) {
-  .footer {
-    max-width: 282px;
-    padding-top: 48px;
-    padding-bottom: 36px;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .footer {
-    max-width: 282px;
-    padding-top: 48px;
-    padding-bottom: 36px;
+  .footer__copyright {
+    font-size: 14px;
+    line-height: 17px;
   }
 }
