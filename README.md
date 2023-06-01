@@ -11,3 +11,7 @@ Around The U.S. is the third project in the Software Engineer program at Practic
 - Grid Layout
 - Web Responsiveness
 - Media Queries
+
+## Project page
+
+[Around The U.S.](https://nsithlopez.github.io/se_project_aroundtheus/)
