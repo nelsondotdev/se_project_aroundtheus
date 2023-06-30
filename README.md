@@ -14,4 +14,4 @@ Around The U.S. is the third project in the Software Engineer program at Practic
 
 ## Project page
 
-[Around The U.S.](https://nsithlopez.github.io/se_project_aroundtheus/)
+[Around The U.S.](https://nelsondotdev.github.io/se_project_aroundtheus/)
