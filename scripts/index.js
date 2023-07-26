@@ -72,7 +72,7 @@ function fillProfileForm() {
 
 function openProfileEditModal() {
   fillProfileForm();
-  profileEditModal.classList.add("modal_opened");
+  openPopup(profileEditModal);
 }
 
 function openPopup(popup) {
@@ -111,11 +111,6 @@ function renderCard(cardElement, container) {
   container.prepend(cardElement);
 }
 
-function getCardView(cardData) {
-  const cardElement = getCardElement(cardData);
-  return cardElement;
-}
-
 /* -------------------------------------------------------------------------- */
 /*                               Event Handlers                               */
 /* -------------------------------------------------------------------------- */
@@ -131,10 +126,11 @@ function handleCardAddSubmit(e) {
   e.preventDefault();
   const name = e.target.title.value;
   const link = e.target.link.value;
-  const cardView = getCardView({
+  const cardView = getCardElement({
     name,
     link,
   });
+  e.target.reset();
   renderCard(cardView, cardListEl);
   closePopup(cardAddModal);
 }
@@ -166,6 +162,6 @@ closePreviewImageModal.addEventListener("click", () =>
 /* -------------------------------------------------------------------------- */
 
 initialCards.forEach((cardData) => {
-  const cardView = getCardView(cardData);
+  const cardView = getCardElement(cardData);
   renderCard(cardView, cardListEl);
 });
