@@ -56,7 +56,7 @@ const cardTemplate =
 
 const previewImageModal = document.querySelector("#preview-image-modal");
 const previewImageElement = document.querySelector(".modal__preview-image");
-const previewTitleElement = document.querySelector(".modal__image_title");
+const previewTitleElement = document.querySelector(".modal__image-title");
 const closePreviewImageModal = document.querySelector(
   ".modal__close_type_preview"
 );
