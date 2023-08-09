@@ -40,14 +40,14 @@ const profileHeadingInput = document.querySelector("#profile-heading-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
-const profileEditForm = profileEditModal.querySelector("#edit-profile-form");
+const profileEditForm = document.forms["edit-profile-form"];
 
 /* ------------------------------ Card Elements ----------------------------- */
 
 const cardAddButton = document.querySelector("#card-add-button");
 const cardAddModal = document.querySelector("#card-add-modal");
 const closeCardAddModal = cardAddModal.querySelector(".modal__close");
-const cardAddForm = document.querySelector("#add-card-form");
+const cardAddForm = document.forms["add-card-form"];
 const cardListEl = document.querySelector(".cards__list");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
@@ -142,31 +142,16 @@ function handleOutsideClick(e) {
     e.target.classList.contains("modal") ||
     e.target.classList.contains("modal__close")
   ) {
-    closePopup(profileEditModal);
-    closePopup(cardAddModal);
-    closePopup(previewImageModal);
+    closePopup(e.currentTarget);
   }
 }
 
 function handleEscEvent(e) {
   if (e.key === "Escape") {
-    closePopup(profileEditModal);
-    closePopup(cardAddModal);
-    closePopup(previewImageModal);
+    const openedModal = document.querySelector(".modal_opened");
+    closePopup(openedModal);
   }
 }
-
-// function handleEscEvent(e, action) {
-//   const activeModal = document.querySelector(".modal__opened");
-//   if (e.key === "Escape") {
-//     action(activeModal);
-//   }
-// }
-
-// function handleEscUp(e) {
-//   e.preventDefault();
-//   handleEscEvent(e, closeProfileEditModal);
-// }
 
 /* -------------------------------------------------------------------------- */
 /*                               Event Listeners                              */
@@ -174,29 +159,17 @@ function handleEscEvent(e) {
 
 profileEditButton.addEventListener("click", openProfileEditModal);
 
-closeProfileEditModal.addEventListener("click", () =>
-  closePopup(profileEditModal)
-);
-
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
 cardAddButton.addEventListener("click", () => openPopup(cardAddModal));
 
-closeCardAddModal.addEventListener("click", () => closePopup(cardAddModal));
-
 cardAddForm.addEventListener("submit", handleCardAddSubmit);
-
-closePreviewImageModal.addEventListener("click", () =>
-  closePopup(previewImageModal)
-);
 
 profileEditModal.addEventListener("click", handleOutsideClick);
 
 cardAddModal.addEventListener("click", handleOutsideClick);
 
 previewImageModal.addEventListener("click", handleOutsideClick);
-
-profileEditModal.addEventListener("keyup", handleEscEvent);
 
 /* -------------------------------------------------------------------------- */
 /*                                    Loops                                   */
