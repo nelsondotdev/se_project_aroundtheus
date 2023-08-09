@@ -77,10 +77,12 @@ function openProfileEditModal() {
 
 function openPopup(popup) {
   popup.classList.add("modal_opened");
+  document.addEventListener("keyup", handleEscEvent);
 }
 
 function closePopup(popup) {
   popup.classList.remove("modal_opened");
+  document.removeEventListener("keyup", handleEscEvent);
 }
 
 function getCardElement(cardData) {
@@ -135,6 +137,37 @@ function handleCardAddSubmit(e) {
   closePopup(cardAddModal);
 }
 
+function handleOutsideClick(e) {
+  if (
+    e.target.classList.contains("modal") ||
+    e.target.classList.contains("modal__close")
+  ) {
+    closePopup(profileEditModal);
+    closePopup(cardAddModal);
+    closePopup(previewImageModal);
+  }
+}
+
+function handleEscEvent(e) {
+  if (e.key === "Escape") {
+    closePopup(profileEditModal);
+    closePopup(cardAddModal);
+    closePopup(previewImageModal);
+  }
+}
+
+// function handleEscEvent(e, action) {
+//   const activeModal = document.querySelector(".modal__opened");
+//   if (e.key === "Escape") {
+//     action(activeModal);
+//   }
+// }
+
+// function handleEscUp(e) {
+//   e.preventDefault();
+//   handleEscEvent(e, closeProfileEditModal);
+// }
+
 /* -------------------------------------------------------------------------- */
 /*                               Event Listeners                              */
 /* -------------------------------------------------------------------------- */
@@ -156,6 +189,14 @@ cardAddForm.addEventListener("submit", handleCardAddSubmit);
 closePreviewImageModal.addEventListener("click", () =>
   closePopup(previewImageModal)
 );
+
+profileEditModal.addEventListener("click", handleOutsideClick);
+
+cardAddModal.addEventListener("click", handleOutsideClick);
+
+previewImageModal.addEventListener("click", handleOutsideClick);
+
+profileEditModal.addEventListener("keyup", handleEscEvent);
 
 /* -------------------------------------------------------------------------- */
 /*                                    Loops                                   */
