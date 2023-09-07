@@ -195,8 +195,8 @@ const config = {
   errorClass: "modal__error",
 };
 
-const editFormModalWindow = document.querySelector(".profile__edit-button");
-const cardFormModalWindow = document.querySelector(".profile__add-button");
+const editFormModalWindow = document.querySelector("#edit-profile-form");
+const cardFormModalWindow = document.querySelector("#add-card-form");
 
 /* -------------------------------------------------------------------------- */
 /*                          Form Validator Instances                          */
