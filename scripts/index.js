@@ -1,3 +1,5 @@
+import FormValidator from "../components/formvalidator.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -179,3 +181,29 @@ initialCards.forEach((cardData) => {
   const cardView = getCardElement(cardData);
   renderCard(cardView, cardListEl);
 });
+
+/* -------------------------------------------------------------------------- */
+/*                            Validation Activation                           */
+/* -------------------------------------------------------------------------- */
+
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__form-input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error",
+};
+
+const editFormModalWindow = document.querySelector(".profile__edit-button");
+const cardFormModalWindow = document.querySelector(".profile__add-button");
+
+/* -------------------------------------------------------------------------- */
+/*                          Form Validator Instances                          */
+/* -------------------------------------------------------------------------- */
+
+const editFormValidator = new FormValidator(config, editFormModalWindow);
+const cardFormValidator = new FormValidator(config, cardFormModalWindow);
+
+editFormValidator.enableValidation();
+cardFormValidator.enableValidation();
