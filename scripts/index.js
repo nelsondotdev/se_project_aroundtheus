@@ -143,9 +143,9 @@ function closePopup(popup) {
 //   return cardElement;
 // }
 
-function renderCard(data, container) {
+function renderCard(data, cardAddForm) {
   const card = new Card(data, "#card-template");
-  container.prepend(card.getView());
+  cardAddForm.prepend(card.getView());
 }
 
 /* -------------------------------------------------------------------------- */
@@ -211,6 +211,5 @@ previewImageModal.addEventListener("click", handleOutsideClick);
 /* -------------------------------------------------------------------------- */
 
 initialCards.forEach((data) => {
-  // const cardView = getCardElement(cardData);
-  renderCard(data);
+  renderCard(data, cardAddForm);
 });
