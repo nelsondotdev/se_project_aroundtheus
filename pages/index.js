@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                                   Imports                                  */
+/* -------------------------------------------------------------------------- */
+
 import FormValidator from "../components/formvalidator.js";
 import Card from "../components/card.js";
 
@@ -118,30 +122,6 @@ function closePopup(popup) {
   popup.classList.remove("modal_opened");
   document.removeEventListener("keyup", handleEscEvent);
 }
-
-// function getCardElement(cardData) {
-//   const cardElement = cardTemplate.cloneNode(true);
-//   const cardImageEl = cardElement.querySelector(".card__image");
-//   const cardTitleEl = cardElement.querySelector(".card__title");
-//   cardImageEl.src = cardData.link;
-//   cardImageEl.alt = cardData.name;
-//   cardTitleEl.textContent = cardData.name;
-//   const cardLikeButton = cardElement.querySelector(".card__like-button");
-//   cardLikeButton.addEventListener("click", () => {
-//     cardLikeButton.classList.toggle("card__like-button_active");
-//   });
-//   const cardTrashButton = cardElement.querySelector(".card__trash-button");
-//   cardTrashButton.addEventListener("click", () => {
-//     cardElement.remove();
-//   });
-//   cardImageEl.addEventListener("click", () => {
-//     previewImageElement.src = cardData.link;
-//     previewImageElement.alt = cardData.name;
-//     previewTitleElement.textContent = cardData.name;
-//     openPopup(previewImageModal);
-//   });
-//   return cardElement;
-// }
 
 function renderCard(data) {
   const card = new Card(data, "#card-template");

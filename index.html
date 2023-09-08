@@ -59,6 +59,10 @@
       </footer>
     </div>
 
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                           Profile Edit Modal                            -->
+    <!-- ----------------------------------------------------------------------- -->
+
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
         <button type="button" class="modal__close"></button>
@@ -97,6 +101,10 @@
         </form>
       </div>
     </div>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                             Add Card Modal                              -->
+    <!-- ----------------------------------------------------------------------- -->
 
     <div class="modal" id="card-add-modal">
       <div class="modal__container">
@@ -138,6 +146,10 @@
       </div>
     </div>
 
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                           Preview Image Modal                           -->
+    <!-- ----------------------------------------------------------------------- -->
+
     <div class="modal" id="preview-image-modal">
       <div class="modal__container modal__container_type_preview">
         <button
@@ -149,9 +161,13 @@
       </div>
     </div>
 
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                              Card Template                              -->
+    <!-- ----------------------------------------------------------------------- -->
+
     <template id="card-template">
       <li class="card">
-        <img src="" alt="" class="card__image" />
+        <img src="#" alt="" class="card__image" />
         <button
           type="button"
           aria-label="trash icon"
@@ -168,7 +184,10 @@
       </li>
     </template>
 
-    <script type="module" src="./scripts/index.js" defer></script>
-    <!-- <script type="module" src="./scripts/validation.js" defer></script> -->
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                 Scripts                                 -->
+    <!-- ----------------------------------------------------------------------- -->
+
+    <script type="module" src="./pages/index.js" defer></script>
   </body>
 </html>
