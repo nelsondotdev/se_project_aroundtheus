@@ -25,15 +25,15 @@ const closeModalWindow = (modalWindow) => {
   document.removeEventListener("keyup", handleEsc);
 };
 
-class Card {
+export default class Card {
   constructor(data, cardSelector) {
-    this._text = data.name;
+    this._name = data.name;
     this._link = data.link;
 
     this._cardSelector = cardSelector;
   }
 
-  _getTemplate() {
+  _getCardElement() {
     const cardElement = document
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
@@ -42,7 +42,17 @@ class Card {
     return cardElement;
   }
 
-  _setEventListeners() {}
+  _setEventListeners() {
+    this._element
+      .querySelector(".card__like-button")
+      .addEventListener("click", () => this._handleLikeIcon());
+    this._element
+      .querySelector(".card__trash-button")
+      .addEventListener("click", () => this._handleDeleteCard());
+    this._element
+      .querySelector(".card__image")
+      .addEventListener("click", () => this._handlePreviewImage());
+  }
 
   _handleLikeIcon() {
     this._cardElement
@@ -55,19 +65,22 @@ class Card {
     this._cardElement = null;
   }
 
-  _handlePreviewPicture() {}
+  _handlePreviewImage() {
+    imageElement.src = this._link;
+    imageElement.alt = this._name;
+    imageCaption.textContent = this._name;
+    openModalWindow(imageModalWindow);
+  }
 
-  renderCard() {
-    this._element = this._getTemplate();
+  getView() {
+    this._element = this._getCardElement();
     this._setEventListeners();
 
     this._element.querySelector(
       ".card__image"
     ).style.backgroundImage = `url(${this._link})`;
-    this._element.querySelector(".card__title").textContent = this._text;
+    this._element.querySelector(".card__title").textContent = this._name;
 
     return this._element;
   }
 }
-
-export default Card;
