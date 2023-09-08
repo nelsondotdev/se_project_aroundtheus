@@ -1,4 +1,4 @@
-class FormValidator {
+export default class FormValidator {
   constructor(config, formElement) {
     this._inputSelector = config.inputSelector;
     this._submitButtonSelector = config.submitButtonSelector;
@@ -9,10 +9,10 @@ class FormValidator {
     this._form = formElement;
   }
 
-  _showInputError(inputEl, errorMessage) {
+  _showInputError(inputEl) {
     const errorMessageEl = this._form.querySelector(`#${inputEl.id}-error`);
     inputEl.classList.add(this._inputErrorClass);
-    errorMessageEl.textContent = errorMessage;
+    errorMessageEl.textContent = inputEl.validationMessage;
     errorMessageEl.classList.add(this._errorClass);
   }
 
@@ -25,9 +25,9 @@ class FormValidator {
 
   _checkInputValidity(inputEl) {
     if (!inputEl.validity.valid) {
-      return _showInputError(inputEl);
+      return this._showInputError(inputEl);
     }
-    _hideInputError(inputEl);
+    this._hideInputError(inputEl);
   }
 
   _disableButton() {
@@ -41,23 +41,23 @@ class FormValidator {
   }
 
   _toggleButtonState() {
-    if (hasInvalidInput(inputEls)) {
+    if (this._hasInvalidInput(this._inputEls)) {
       return this._disableButton();
     }
     return this._enableButton();
   }
 
-  _hadInvalidInput(inputList) {
+  _hasInvalidInput(inputList) {
     return !inputList.every((inputEl) => inputEl.validity.valid);
   }
 
   _setEventListeners() {
-    const inputEls = [...this._form.querySelectorAll(this._inputSelector)];
-    const submitButton = this._form.querySelector(this._submitButtonSelector);
-    inputEls.forEach((inputEl) => {
+    this._inputEls = [...this._form.querySelectorAll(this._inputSelector)];
+    this._submitButton = this._form.querySelector(this._submitButtonSelector);
+    this._inputEls.forEach((inputEl) => {
       inputEl.addEventListener("input", (e) => {
-        this._checkInputValidity(this._form, inputEl);
-        this._toggleButtonState(inputEls, submitButton);
+        this._checkInputValidity(inputEl);
+        this._toggleButtonState();
       });
     });
   }
@@ -70,5 +70,3 @@ class FormValidator {
     this._setEventListeners();
   }
 }
-
-export default FormValidator;
