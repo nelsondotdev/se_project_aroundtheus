@@ -1,29 +1,27 @@
-const imageModalWindow = document.querySelector(
-  ".modal__container_type_preview"
-);
-const imageElement = imageModalWindow.querySelector(".modal__preview-image");
-const imageCaption = imageModalWindow.querySelector(".modal__image-title");
+const previewImageModal = document.querySelector("#preview-image-modal");
+const previewImageElement = document.querySelector(".modal__preview-image");
+const previewTitleElement = document.querySelector(".modal__image-title");
 const ESC_KEYCODE = 27;
 
-const handleEsc = (e) => {
+const handleEscEvent = (e) => {
   e.preventDefault();
 
   const activePopup = document.querySelector(".modal_opened");
 
   if (e.which === ESC_KEYCODE) {
-    closeModalWindow(activePopup);
+    closePopup(activePopup);
   }
 };
 
-const openModalWindow = (modalWindow) => {
-  modalWindow.classList.add("modal_opened");
-  document.addEventListener("keyup", handleEsc);
-};
+function openPopup(popup) {
+  popup.classList.add("modal_opened");
+  document.addEventListener("keyup", handleEscEvent);
+}
 
-const closeModalWindow = (modalWindow) => {
-  modalWindow.classList.remove("modal_opened");
-  document.removeEventListener("keyup", handleEsc);
-};
+function closePopup(popup) {
+  popup.classList.remove("modal_opened");
+  document.removeEventListener("keyup", handleEscEvent);
+}
 
 export default class Card {
   constructor(data, cardSelector) {
@@ -55,21 +53,21 @@ export default class Card {
   }
 
   _handleLikeIcon() {
-    this._cardElement
+    this._element
       .querySelector(".card__like-button")
       .classList.toggle("card__like-button_active");
   }
 
   _handleDeleteCard() {
-    this._cardElement.remove();
-    this._cardElement = null;
+    this._element.remove();
+    this._element = null;
   }
 
   _handlePreviewImage() {
-    imageElement.src = this._link;
-    imageElement.alt = this._name;
-    imageCaption.textContent = this._name;
-    openModalWindow(imageModalWindow);
+    previewImageElement.src = this._link;
+    previewImageElement.alt = this._name;
+    previewTitleElement.textContent = this._name;
+    openPopup(previewImageModal);
   }
 
   getView() {

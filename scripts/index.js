@@ -165,7 +165,6 @@ function handleCardAddSubmit(e) {
   const link = e.target.link.value;
   const cardView = renderCard({ name, link });
   e.target.reset();
-  renderCard(cardView, cardListEl);
   closePopup(cardAddModal);
 }
 
