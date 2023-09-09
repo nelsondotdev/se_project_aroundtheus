@@ -13,16 +13,6 @@ const previewImageElement = document.querySelector(".modal__preview-image");
 const previewTitleElement = document.querySelector(".modal__image-title");
 const ESC_KEYCODE = 27;
 
-const handleEscEvent = (e) => {
-  e.preventDefault();
-
-  const activePopup = document.querySelector(".modal_opened");
-
-  if (e.which === ESC_KEYCODE) {
-    closePopup(activePopup);
-  }
-};
-
 /* -------------------------------------------------------------------------- */
 /*                                   Classes                                  */
 /* -------------------------------------------------------------------------- */
@@ -79,6 +69,7 @@ class Card {
     this._setEventListeners();
 
     this._element.querySelector(".card__image").src = this._link;
+    this._element.querySelector(".card__image").alt = this._name;
     this._element.querySelector(".card__title").textContent = this._name;
 
     return this._element;

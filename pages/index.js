@@ -18,15 +18,15 @@ const config = {
   errorClass: "modal__error",
 };
 
-const editFormModalWindow = document.querySelector("#edit-profile-form");
-const cardFormModalWindow = document.querySelector("#add-card-form");
+const profileEditForm = document.forms["edit-profile-form"];
+const cardAddForm = document.forms["add-card-form"];
 
 /* -------------------------------------------------------------------------- */
 /*                          Form Validator Instances                          */
 /* -------------------------------------------------------------------------- */
 
-const editFormValidator = new FormValidator(config, editFormModalWindow);
-const cardFormValidator = new FormValidator(config, cardFormModalWindow);
+const editFormValidator = new FormValidator(config, profileEditForm);
+const cardFormValidator = new FormValidator(config, cardAddForm);
 
 editFormValidator.enableValidation();
 cardFormValidator.enableValidation();
@@ -77,14 +77,12 @@ const profileHeadingInput = document.querySelector("#profile-heading-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
-const profileEditForm = document.forms["edit-profile-form"];
 
 /* ------------------------------ Card Elements ----------------------------- */
 
 const cardAddButton = document.querySelector("#card-add-button");
 const cardAddModal = document.querySelector("#card-add-modal");
 const closeCardAddModal = cardAddModal.querySelector(".modal__close");
-const cardAddForm = document.forms["add-card-form"];
 const cardListEl = document.querySelector(".cards__list");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
@@ -143,7 +141,7 @@ function handleCardAddSubmit(e) {
   e.preventDefault();
   const name = e.target.title.value;
   const link = e.target.link.value;
-  const cardView = renderCard({ name, link });
+  renderCard({ name, link });
   e.target.reset();
   closePopup(cardAddModal);
   cardFormValidator.toggleButtonState();
