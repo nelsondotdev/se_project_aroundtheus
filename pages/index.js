@@ -190,3 +190,9 @@ previewImageModal.addEventListener("click", handleOutsideClick);
 initialCards.forEach((data) => {
   renderCard(data, cardListEl);
 });
+
+/* -------------------------------------------------------------------------- */
+/*                                   Exports                                  */
+/* -------------------------------------------------------------------------- */
+
+export { openPopup, closePopup };

@@ -1,3 +1,13 @@
+/* -------------------------------------------------------------------------- */
+/*                                   Imports                                  */
+/* -------------------------------------------------------------------------- */
+
+import { openPopup, closePopup } from "../pages/index.js";
+
+/* -------------------------------------------------------------------------- */
+/*                                  Elements                                  */
+/* -------------------------------------------------------------------------- */
+
 const previewImageModal = document.querySelector("#preview-image-modal");
 const previewImageElement = document.querySelector(".modal__preview-image");
 const previewTitleElement = document.querySelector(".modal__image-title");
@@ -13,17 +23,11 @@ const handleEscEvent = (e) => {
   }
 };
 
-function openPopup(data) {
-  data.classList.add("modal_opened");
-  document.addEventListener("keyup", handleEscEvent);
-}
+/* -------------------------------------------------------------------------- */
+/*                                   Classes                                  */
+/* -------------------------------------------------------------------------- */
 
-function closePopup(data) {
-  data.classList.remove("modal_opened");
-  document.removeEventListener("keyup", handleEscEvent);
-}
-
-export default class Card {
+class Card {
   constructor(data, cardSelector) {
     this._name = data.name;
     this._link = data.link;
@@ -80,3 +84,9 @@ export default class Card {
     return this._element;
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                   Exports                                  */
+/* -------------------------------------------------------------------------- */
+
+export default Card;
