@@ -13,13 +13,13 @@ const handleEscEvent = (e) => {
   }
 };
 
-function openPopup(popup) {
-  popup.classList.add("modal_opened");
+function openPopup(data) {
+  data.classList.add("modal_opened");
   document.addEventListener("keyup", handleEscEvent);
 }
 
-function closePopup(popup) {
-  popup.classList.remove("modal_opened");
+function closePopup(data) {
+  data.classList.remove("modal_opened");
   document.removeEventListener("keyup", handleEscEvent);
 }
 

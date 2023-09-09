@@ -113,13 +113,13 @@ function openProfileEditModal() {
   openPopup(profileEditModal);
 }
 
-function openPopup(popup) {
-  popup.classList.add("modal_opened");
+function openPopup(data) {
+  data.classList.add("modal_opened");
   document.addEventListener("keyup", handleEscEvent);
 }
 
-function closePopup(popup) {
-  popup.classList.remove("modal_opened");
+function closePopup(data) {
+  data.classList.remove("modal_opened");
   document.removeEventListener("keyup", handleEscEvent);
 }
 
@@ -146,6 +146,7 @@ function handleCardAddSubmit(e) {
   const cardView = renderCard({ name, link });
   e.target.reset();
   closePopup(cardAddModal);
+  cardFormValidator.toggleButtonState();
 }
 
 function handleOutsideClick(e) {

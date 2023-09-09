@@ -193,3 +193,9 @@
     font-size: 14px;
   }
 }
+
+@media screen and (max-width: 360px) {
+  .modal__container {
+    min-width: 238px;
+  }
+}
