@@ -144,7 +144,7 @@ function handleCardAddSubmit(e) {
   renderCard({ name, link });
   e.target.reset();
   closePopup(cardAddModal);
-  cardFormValidator.toggleButtonState();
+  cardFormValidator.resetValidation();
 }
 
 function handleOutsideClick(e) {
