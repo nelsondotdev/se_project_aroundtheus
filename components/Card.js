@@ -35,21 +35,17 @@ class Card {
   }
 
   _setEventListeners() {
-    this._element
-      .querySelector(".card__like-button")
-      .addEventListener("click", () => this._handleLikeIcon());
-    this._element
-      .querySelector(".card__trash-button")
-      .addEventListener("click", () => this._handleDeleteCard());
-    this._element
-      .querySelector(".card__image")
-      .addEventListener("click", () => this._handlePreviewImage());
+    this._likeButton = this._element.querySelector(".card__like-button");
+    this._deleteCard = this._element.querySelector(".card__trash-button");
+    this._cardImage = this._element.querySelector(".card__image");
+
+    this._likeButton.addEventListener("click", () => this._handleLikeIcon());
+    this._deleteCard.addEventListener("click", () => this._handleDeleteCard());
+    this._cardImage.addEventListener("click", () => this._handlePreviewImage());
   }
 
   _handleLikeIcon() {
-    this._element
-      .querySelector(".card__like-button")
-      .classList.toggle("card__like-button_active");
+    this._likeButton.classList.toggle("card__like-button_active");
   }
 
   _handleDeleteCard() {
