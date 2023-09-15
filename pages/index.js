@@ -40,12 +40,6 @@ const enableValidation = (config) => {
 
 enableValidation(config);
 
-const editFormValidator = new FormValidator(config, profileEditForm);
-const cardFormValidator = new FormValidator(config, cardAddForm);
-
-editFormValidator.enableValidation();
-cardFormValidator.enableValidation();
-
 /* -------------------------------------------------------------------------- */
 /*                                    Cards                                   */
 /* -------------------------------------------------------------------------- */
@@ -159,7 +153,7 @@ function handleCardAddSubmit(e) {
   renderCard({ name, link });
   e.target.reset();
   closePopup(cardAddModal);
-  cardFormValidator.resetValidation();
+  formValidators[cardAddForm.getAttribute("name")].resetValidation();
 }
 
 function handleOutsideClick(e) {
