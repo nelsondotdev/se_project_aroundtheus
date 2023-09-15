@@ -25,6 +25,21 @@ const cardAddForm = document.forms["add-card-form"];
 /*                          Form Validator Instances                          */
 /* -------------------------------------------------------------------------- */
 
+const formValidators = {};
+
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formEl) => {
+    const validator = new FormValidator(config, formEl);
+    const formName = formEl.getAttribute("name");
+
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(config);
+
 const editFormValidator = new FormValidator(config, profileEditForm);
 const cardFormValidator = new FormValidator(config, cardAddForm);
 
