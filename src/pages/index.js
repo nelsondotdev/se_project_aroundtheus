@@ -4,6 +4,7 @@
 
 import FormValidator from "../components/formvalidator.js";
 import Card from "../components/card.js";
+import "./index.css";
 
 /* -------------------------------------------------------------------------- */
 /*                            Validation Activation                           */
