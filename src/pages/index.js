@@ -45,7 +45,7 @@ enableValidation(config);
 /*                               Instantiations                               */
 /* -------------------------------------------------------------------------- */
 
-const newCardPopup = new PopupWithForms("card-add-modal", () => {});
+const newCardPopup = new PopupWithForm("card-add-modal", () => {});
 
 /* -------------------------------------------------------------------------- */
 /*                                    Cards                                   */
