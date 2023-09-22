@@ -209,4 +209,4 @@ initialCards.forEach((data) => {
 /*                                   Exports                                  */
 /* -------------------------------------------------------------------------- */
 
-export { openPopup, closePopup };
+export { openPopup, closePopup, handleOutsideClick };
