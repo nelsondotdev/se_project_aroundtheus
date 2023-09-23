@@ -20,7 +20,6 @@ import {
   cardListEl,
   cardAddModal,
   cardAddForm,
-  formValidators,
   profileEditButton,
   profileEditForm,
   cardAddButton,
