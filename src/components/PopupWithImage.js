@@ -9,7 +9,16 @@ import Popup from "./Popup.js";
 /* -------------------------------------------------------------------------- */
 
 class PopupWithImage extends Popup {
-  constructor() {}
+  constructor(popupSelector, handleFormSubmit) {
+    super(popupSelector);
+    this._handleFormSubmit = handleFormSubmit;
+  }
+
+  _getInputValues() {}
+
+  setEventListeners() {
+    super.setEventListeners();
+  }
 }
 
 /* -------------------------------------------------------------------------- */

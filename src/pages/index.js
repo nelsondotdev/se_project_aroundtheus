@@ -45,7 +45,7 @@ enableValidation(config);
 /*                               Instantiations                               */
 /* -------------------------------------------------------------------------- */
 
-const newCardPopup = new PopupWithForm("card-add-modal", () => {});
+// const newCardPopup = new PopupWithForm("card-add-modal", () => {});
 
 /* -------------------------------------------------------------------------- */
 /*                                    Cards                                   */
@@ -81,6 +81,10 @@ const initialCards = [
 /* -------------------------------------------------------------------------- */
 /*                                  Elements                                  */
 /* -------------------------------------------------------------------------- */
+
+/* ---------------------------- Generic Elements ---------------------------- */
+
+const popups = document.querySelectorAll(".modal");
 
 /* ---------------------------- Profile Elements ---------------------------- */
 
@@ -137,9 +141,14 @@ function closePopup(data) {
   document.removeEventListener("keyup", handleEscEvent);
 }
 
-function renderCard(data) {
+function createCard(data) {
   const card = new Card(data, "#card-template");
-  cardListEl.prepend(card.getView());
+  return card.getView();
+}
+
+function renderCard(data) {
+  const cardElement = createCard(data);
+  cardListEl.prepend(cardElement);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -163,15 +172,6 @@ function handleCardAddSubmit(e) {
   formValidators[cardAddForm.getAttribute("name")].resetValidation();
 }
 
-function handleOutsideClick(e) {
-  if (
-    e.target.classList.contains("modal") ||
-    e.target.classList.contains("modal__close")
-  ) {
-    closePopup(e.currentTarget);
-  }
-}
-
 function handleEscEvent(e) {
   if (e.key === "Escape") {
     const openedModal = document.querySelector(".modal_opened");
@@ -191,11 +191,16 @@ cardAddButton.addEventListener("click", () => openPopup(cardAddModal));
 
 cardAddForm.addEventListener("submit", handleCardAddSubmit);
 
-profileEditModal.addEventListener("click", handleOutsideClick);
-
-cardAddModal.addEventListener("click", handleOutsideClick);
-
-previewImageModal.addEventListener("click", handleOutsideClick);
+popups.forEach((popup) => {
+  popup.addEventListener("mousedown", (e) => {
+    if (e.target.classList.contains("modal")) {
+      closePopup(popup);
+    }
+    if (e.target.classList.contains("modal__close")) {
+      closePopup(popup);
+    }
+  });
+});
 
 /* -------------------------------------------------------------------------- */
 /*                                    Loops                                   */
@@ -209,4 +214,4 @@ initialCards.forEach((data) => {
 /*                                   Exports                                  */
 /* -------------------------------------------------------------------------- */
 
-export { openPopup, closePopup, handleOutsideClick };
+export { openPopup, closePopup };
