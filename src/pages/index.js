@@ -4,6 +4,7 @@
 
 /* ------------------------------- Components ------------------------------- */
 
+import FormValidator from "../components/formvalidator.js";
 import Card from "../components/card.js";
 import Popup from "../components/Popup.js";
 
@@ -29,6 +30,46 @@ import {
 /* --------------------------------- Styles --------------------------------- */
 
 import "./index.css";
+
+/* -------------------------------------------------------------------------- */
+/*                               Instantiations                               */
+/* -------------------------------------------------------------------------- */
+
+/* ------------------------ Form Validator Activation ----------------------- */
+
+export const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__form-input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error",
+};
+
+export const profileEditForm = document.forms["edit-profile-form"];
+export const cardAddForm = document.forms["add-card-form"];
+
+/* ------------------------ Form Validator Instances ------------------------ */
+
+export const formValidators = {};
+
+export const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formEl) => {
+    const validator = new FormValidator(config, formEl);
+    const formName = formEl.getAttribute("name");
+
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(config);
+
+/* ----------------------------- Popup Instances ---------------------------- */
+
+const popupEditProfile = new PopupWithForm();
+const popupAddCard = new PopupWithForm();
 
 /* -------------------------------------------------------------------------- */
 /*                                  Functions                                 */
@@ -125,6 +166,7 @@ initialCards.forEach((data) => {
   renderCard(data, cardListEl);
 });
 
+// This combines overlay and close buttons to close popup
 popups.forEach((popupElement) => {
   new Popup(popupElement);
 });

@@ -13,12 +13,6 @@ class PopupWithImage extends Popup {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
   }
-
-  _getInputValues() {}
-
-  setEventListeners() {
-    super.setEventListeners();
-  }
 }
 
 /* -------------------------------------------------------------------------- */
