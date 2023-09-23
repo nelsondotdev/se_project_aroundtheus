@@ -2,11 +2,46 @@
 /*                                   Imports                                  */
 /* -------------------------------------------------------------------------- */
 
+import FormValidator from "../components/formvalidator.js";
+
 /* -------------------------------------------------------------------------- */
-/*                                  Constants                                 */
+/*                            Validation Activation                           */
 /* -------------------------------------------------------------------------- */
 
-/* ------------------------------ Initial Cards ----------------------------- */
+export const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__form-input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error",
+};
+
+export const profileEditForm = document.forms["edit-profile-form"];
+export const cardAddForm = document.forms["add-card-form"];
+
+/* -------------------------------------------------------------------------- */
+/*                          Form Validator Instances                          */
+/* -------------------------------------------------------------------------- */
+
+export const formValidators = {};
+
+export const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formEl) => {
+    const validator = new FormValidator(config, formEl);
+    const formName = formEl.getAttribute("name");
+
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(config);
+
+/* -------------------------------------------------------------------------- */
+/*                                    Cards                                   */
+/* -------------------------------------------------------------------------- */
 
 export const initialCards = [
   {
@@ -35,7 +70,15 @@ export const initialCards = [
   },
 ];
 
-/* --------------------------------- Profile -------------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                                  Elements                                  */
+/* -------------------------------------------------------------------------- */
+
+/* ---------------------------- Generic Elements ---------------------------- */
+
+export const popups = document.querySelectorAll(".modal");
+
+/* ---------------------------- Profile Elements ---------------------------- */
 
 export const profileEditButton = document.querySelector("#profile-edit-button");
 export const profileEditModal = document.querySelector("#profile-edit-modal");
@@ -52,7 +95,7 @@ export const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
-/* ---------------------------------- Card ---------------------------------- */
+/* ------------------------------ Card Elements ----------------------------- */
 
 export const cardAddButton = document.querySelector("#card-add-button");
 export const cardAddModal = document.querySelector("#card-add-modal");
@@ -62,7 +105,7 @@ export const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 export const cardSelector = "#card-template";
 
-/* ------------------------------ Preview Image ----------------------------- */
+/* ------------------------- Preview Image Elements ------------------------- */
 
 export const previewImageModal = document.querySelector("#preview-image-modal");
 export const previewImageElement = document.querySelector(

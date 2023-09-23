@@ -2,120 +2,33 @@
 /*                                   Imports                                  */
 /* -------------------------------------------------------------------------- */
 
-import FormValidator from "../components/formvalidator.js";
+/* ------------------------------- Components ------------------------------- */
+
 import Card from "../components/card.js";
+import Popup from "../components/Popup.js";
+
+/* ------------------------- Utilities and constants ------------------------ */
+
+import {
+  initialCards,
+  profileEditModal,
+  profileHeadingInput,
+  profileHeading,
+  profileDescription,
+  profileDescriptionInput,
+  cardListEl,
+  cardAddModal,
+  cardAddForm,
+  formValidators,
+  profileEditButton,
+  profileEditForm,
+  cardAddButton,
+  popups,
+} from "../utils/constants.js";
+
+/* --------------------------------- Styles --------------------------------- */
+
 import "./index.css";
-
-/* -------------------------------------------------------------------------- */
-/*                            Validation Activation                           */
-/* -------------------------------------------------------------------------- */
-
-const config = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__form-input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error",
-};
-
-const profileEditForm = document.forms["edit-profile-form"];
-const cardAddForm = document.forms["add-card-form"];
-
-/* -------------------------------------------------------------------------- */
-/*                          Form Validator Instances                          */
-/* -------------------------------------------------------------------------- */
-
-const formValidators = {};
-
-const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach((formEl) => {
-    const validator = new FormValidator(config, formEl);
-    const formName = formEl.getAttribute("name");
-
-    formValidators[formName] = validator;
-    validator.enableValidation();
-  });
-};
-
-enableValidation(config);
-
-/* -------------------------------------------------------------------------- */
-/*                               Instantiations                               */
-/* -------------------------------------------------------------------------- */
-
-// const newCardPopup = new PopupWithForm("card-add-modal", () => {});
-
-/* -------------------------------------------------------------------------- */
-/*                                    Cards                                   */
-/* -------------------------------------------------------------------------- */
-
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
-
-/* -------------------------------------------------------------------------- */
-/*                                  Elements                                  */
-/* -------------------------------------------------------------------------- */
-
-/* ---------------------------- Generic Elements ---------------------------- */
-
-const popups = document.querySelectorAll(".modal");
-
-/* ---------------------------- Profile Elements ---------------------------- */
-
-const profileEditButton = document.querySelector("#profile-edit-button");
-const profileEditModal = document.querySelector("#profile-edit-modal");
-const closeProfileEditModal = profileEditModal.querySelector(".modal__close");
-const profileHeading = document.querySelector(".profile__heading");
-const profileDescription = document.querySelector(".profile__description");
-const profileHeadingInput = document.querySelector("#profile-heading-input");
-const profileDescriptionInput = document.querySelector(
-  "#profile-description-input"
-);
-
-/* ------------------------------ Card Elements ----------------------------- */
-
-const cardAddButton = document.querySelector("#card-add-button");
-const cardAddModal = document.querySelector("#card-add-modal");
-const closeCardAddModal = cardAddModal.querySelector(".modal__close");
-const cardListEl = document.querySelector(".cards__list");
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
-const cardSelector = "#card-template";
-
-/* ------------------------- Preview Image Elements ------------------------- */
-
-const previewImageModal = document.querySelector("#preview-image-modal");
-const previewImageElement = document.querySelector(".modal__preview-image");
-const previewTitleElement = document.querySelector(".modal__image-title");
-const closePreviewImageModal = document.querySelector(
-  ".modal__close_type_preview"
-);
 
 /* -------------------------------------------------------------------------- */
 /*                                  Functions                                 */
@@ -172,6 +85,15 @@ function handleCardAddSubmit(e) {
   formValidators[cardAddForm.getAttribute("name")].resetValidation();
 }
 
+function handleOutsideClick(e, popup) {
+  if (e.target.classList.contains("modal")) {
+    closePopup(popup);
+  }
+  if (e.target.classList.contains("modal__close")) {
+    closePopup(popup);
+  }
+}
+
 function handleEscEvent(e) {
   if (e.key === "Escape") {
     const openedModal = document.querySelector(".modal_opened");
@@ -192,14 +114,7 @@ cardAddButton.addEventListener("click", () => openPopup(cardAddModal));
 cardAddForm.addEventListener("submit", handleCardAddSubmit);
 
 popups.forEach((popup) => {
-  popup.addEventListener("mousedown", (e) => {
-    if (e.target.classList.contains("modal")) {
-      closePopup(popup);
-    }
-    if (e.target.classList.contains("modal__close")) {
-      closePopup(popup);
-    }
-  });
+  popup.addEventListener("mousedown", (e) => handleOutsideClick(e, popup));
 });
 
 /* -------------------------------------------------------------------------- */
@@ -208,6 +123,10 @@ popups.forEach((popup) => {
 
 initialCards.forEach((data) => {
   renderCard(data, cardListEl);
+});
+
+popups.forEach((popupElement) => {
+  new Popup(popupElement);
 });
 
 /* -------------------------------------------------------------------------- */
