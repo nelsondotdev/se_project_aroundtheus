@@ -38,6 +38,11 @@ export const initialCards = [
 /* ---------------------------- Generic Elements ---------------------------- */
 
 export const popups = document.querySelectorAll(".modal");
+export const selectors = {
+  cardSection: "cards__list",
+  cardTemplate: "#card-template",
+  previewModal: "#preview-image-modal",
+};
 
 /* ---------------------------- Profile Elements ---------------------------- */
 

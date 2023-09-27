@@ -6,12 +6,15 @@
 
 import FormValidator from "../components/formvalidator.js";
 import Card from "../components/card.js";
-import Popup from "../components/Popup.js";
+import Section from "../components/Section.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 
 /* ------------------------- Utilities and constants ------------------------ */
 
 import {
   initialCards,
+  selectors,
   profileEditModal,
   profileHeadingInput,
   profileHeading,
@@ -19,9 +22,7 @@ import {
   profileDescriptionInput,
   cardListEl,
   cardAddModal,
-  cardAddForm,
   profileEditButton,
-  profileEditForm,
   cardAddButton,
   popups,
 } from "../utils/constants.js";
@@ -65,10 +66,51 @@ export const enableValidation = (config) => {
 
 enableValidation(config);
 
+/* ---------------------------- Section Instances --------------------------- */
+
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (data) => {
+      const cardElement = new Card(
+        data,
+        selectors.cardTemplate,
+        handleImageClick
+      );
+      return cardElement.getView();
+    },
+  },
+  `.${selectors.cardSection}`
+);
+
+/* --------------------------- User Info Instances -------------------------- */
+
+const userInfo = new UserInfo({
+  nameSelector: ".profile__heading",
+  jobSelector: ".profile__description",
+});
+
 /* ----------------------------- Popup Instances ---------------------------- */
 
-const popupEditProfile = new PopupWithForm();
-const popupAddCard = new PopupWithForm();
+const editProfilePopup = new PopupWithForm(
+  "#profile-edit-modal",
+  handleProfileEditSubmit
+);
+editProfilePopup.setEventListeners();
+
+const addCardPopup = new PopupWithForm("#card-add-modal", handleCardAddSubmit);
+addCardPopup.setEventListeners();
+
+function handleImageClick(data) {
+  const imagePopup = new PopupWithImage("#preview-image-modal");
+  imagePopup.open(data.link, data.name);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                               Initialization                               */
+/* -------------------------------------------------------------------------- */
+
+cardSection.renderItems(initialCards);
 
 /* -------------------------------------------------------------------------- */
 /*                                  Functions                                 */
@@ -110,8 +152,9 @@ function renderCard(data) {
 
 function handleProfileEditSubmit(e) {
   e.preventDefault();
-  profileHeading.textContent = profileHeadingInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
+  const name = profileHeadingInput.value;
+  const job = profileDescriptionInput.value;
+  UserInfo.setUserInfo({ name, job });
   closePopup(profileEditModal);
 }
 
@@ -141,6 +184,10 @@ function handleEscEvent(e) {
   }
 }
 
+// function handleImageClick(data) {
+//   imagePopup.openPopup(data.link, data.name);
+// }
+
 /* -------------------------------------------------------------------------- */
 /*                               Event Listeners                              */
 /* -------------------------------------------------------------------------- */
@@ -163,11 +210,6 @@ popups.forEach((popup) => {
 
 initialCards.forEach((data) => {
   renderCard(data, cardListEl);
-});
-
-// This combines overlay and close buttons to close popup
-popups.forEach((popupElement) => {
-  new Popup(popupElement);
 });
 
 /* -------------------------------------------------------------------------- */

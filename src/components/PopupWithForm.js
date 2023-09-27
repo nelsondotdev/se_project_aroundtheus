@@ -9,16 +9,16 @@ import Popup from "./Popup.js";
 /* -------------------------------------------------------------------------- */
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, handleFormSubmit) {
-    super({ popupSelector });
-    this._handleFormSubmit = handleFormSubmit;
-    this._popupForm = this._popupElement.querySelector(".modal__form");
+  constructor(popupSelector, submitHandler) {
+    super(popupSelector);
+    this._submitHandler = submitHandler;
+    this._formElement = this._popupElement.querySelector(".modal__form");
   }
 
   _getInputValues() {
-    const inputs = this._popupForm.querySelector(".modal__form-input");
+    const inputList = this._formElement.querySelectorAll(".modal__form-input");
     const inputValues = {};
-    inputs.forEach((input) => {
+    inputList.forEach((input) => {
       inputValues[input.name] = input.value;
     });
     return inputValues;
@@ -26,16 +26,16 @@ export default class PopupWithForm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-
-    this._popupForm.addEventListener("submit", (e) => {
+    this._formElement.addEventListener("submit", (e) => {
       e.preventDefault();
-      this._handleFormSubmit(this._getInputValues());
+      this._submitHandler(this._getInputValues());
+      this.closePopup();
     });
   }
 
   closePopup() {
-    this._popupForm.reset();
     super.closePopup();
+    this._formElement.reset();
   }
 }
 

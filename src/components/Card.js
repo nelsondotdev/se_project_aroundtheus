@@ -2,27 +2,25 @@
 /*                                   Imports                                  */
 /* -------------------------------------------------------------------------- */
 
-import { openPopup, closePopup } from "../pages/index.js";
-
 /* -------------------------------------------------------------------------- */
 /*                                  Elements                                  */
 /* -------------------------------------------------------------------------- */
 
-const previewImageModal = document.querySelector("#preview-image-modal");
-const previewImageElement = document.querySelector(".modal__preview-image");
-const previewTitleElement = document.querySelector(".modal__image-title");
-const ESC_KEYCODE = 27;
+// const previewImageModal = document.querySelector("#preview-image-modal");
+// const previewImageElement = document.querySelector(".modal__preview-image");
+// const previewTitleElement = document.querySelector(".modal__image-title");
+// const ESC_KEYCODE = 27;
 
 /* -------------------------------------------------------------------------- */
 /*                                   Classes                                  */
 /* -------------------------------------------------------------------------- */
 
 class Card {
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, handleImageClick) {
     this._name = data.name;
     this._link = data.link;
-
     this._cardSelector = cardSelector;
+    this._handleImageClick = handleImageClick;
   }
 
   _getCardElement() {
@@ -35,13 +33,15 @@ class Card {
   }
 
   _setEventListeners() {
-    this._likeButton = this._element.querySelector(".card__like-button");
-    this._deleteCard = this._element.querySelector(".card__trash-button");
-    this._cardImage = this._element.querySelector(".card__image");
+    this._likeButton = this._element?.querySelector(".card__like-button");
+    this._deleteCard = this._element?.querySelector(".card__trash-button");
+    this._cardImage = this._element?.querySelector(".card__image");
 
-    this._likeButton.addEventListener("click", () => this._handleLikeIcon());
-    this._deleteCard.addEventListener("click", () => this._handleDeleteCard());
-    this._cardImage.addEventListener("click", () => this._handlePreviewImage());
+    this._likeButton?.addEventListener("click", () => this._handleLikeIcon());
+    this._deleteCard?.addEventListener("click", () => this._handleDeleteCard());
+    this._cardImage?.addEventListener("click", () => {
+      this._handleImageClick({ name: this._name, link: this._link });
+    });
   }
 
   _handleLikeIcon() {
@@ -51,13 +51,6 @@ class Card {
   _handleDeleteCard() {
     this._element.remove();
     this._element = null;
-  }
-
-  _handlePreviewImage() {
-    previewImageElement.src = this._link;
-    previewImageElement.alt = this._name;
-    previewTitleElement.textContent = this._name;
-    openPopup(previewImageModal);
   }
 
   getView() {

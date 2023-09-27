@@ -7,7 +7,21 @@
 /* -------------------------------------------------------------------------- */
 
 export default class Section {
-  constructor() {}
+  constructor({ items, renderer }, selector) {
+    this._items = items;
+    this._renderer = renderer;
+    this._container = document.querySelector(selector);
+  }
+
+  renderItems(item) {
+    this._items.forEach((item) => {
+      this._renderer(item);
+    });
+  }
+
+  addItems(item) {
+    this._container.prepend(item);
+  }
 }
 
 /* -------------------------------------------------------------------------- */
