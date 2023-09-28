@@ -20,10 +20,7 @@ class Popup {
 
   _handleEscEvent(e) {
     e.preventDefault();
-    if (
-      e.key === "Escape" &&
-      this._popupElement.classList.contains("modal_opened")
-    ) {
+    if (e.key === "Escape") {
       this.close();
     }
   }

@@ -16,8 +16,6 @@ import { selectors, config } from "../utils/utils.js";
 import {
   initialCards,
   profileHeadingInput,
-  profileHeading,
-  profileDescription,
   profileDescriptionInput,
   cardAddForm,
   profileEditButton,
@@ -88,13 +86,6 @@ const imagePopup = new PopupWithImage("#preview-image-modal");
 
 cardSection.renderItems();
 
-// User Info Invocation
-
-userInfo.setUserInfo({
-  name: profileHeading.textContent,
-  about: profileDescription.textContent,
-});
-
 // Edit Profile Popup Invocation
 
 editProfilePopup.setEventListeners();
@@ -132,7 +123,6 @@ function handleCardAddSubmit(data) {
   const cardElement = createCard(data);
   cardSection.addItem(cardElement);
   addCardPopup.close();
-  formValidators[cardAddForm.getAttribute("name")].resetValidation();
 }
 
 // Edit Profile Handlers
@@ -160,6 +150,7 @@ profileEditButton.addEventListener("click", () => {
 // Add Card Listeners
 
 cardAddButton.addEventListener("click", () => {
+  formValidators[cardAddForm.getAttribute("name")].resetValidation();
   addCardPopup.open();
 });
 
