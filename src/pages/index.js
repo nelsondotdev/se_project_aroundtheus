@@ -1,8 +1,6 @@
-/* -------------------------------------------------------------------------- */
-/*                                   Imports                                  */
-/* -------------------------------------------------------------------------- */
+/* --------------------------------- Imports -------------------------------- */
 
-/* ------------------------------- Components ------------------------------- */
+// Components
 
 import FormValidator from "../components/formvalidator.js";
 import Card from "../components/card.js";
@@ -11,35 +9,28 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 
-/* ------------------------- Utilities and constants ------------------------ */
+// Utilities and constants
+
+import { selectors, config, cardTemplate } from "../utils/utils.js";
 
 import {
   initialCards,
-  selectors,
-  config,
-  profileEditModal,
   profileHeadingInput,
   profileHeading,
   profileDescription,
   profileDescriptionInput,
-  cardListEl,
-  cardAddModal,
+  cardAddForm,
   profileEditButton,
   cardAddButton,
-  popups,
 } from "../utils/constants.js";
 
-/* --------------------------------- Styles --------------------------------- */
+// Styles
 
 import "./index.css";
 
-/* -------------------------------------------------------------------------- */
-/*                               Instantiations                               */
-/* -------------------------------------------------------------------------- */
+/* -------------------------------- Instances ------------------------------- */
 
-/* ------------------------ Form Validator Activation ----------------------- */
-
-/* ------------------------ Form Validator Instances ------------------------ */
+// Form Validator Initialization
 
 export const formValidators = {};
 
@@ -48,7 +39,6 @@ export const enableValidation = (config) => {
   formList.forEach((formEl) => {
     const validator = new FormValidator(config, formEl);
     const formName = formEl.getAttribute("name");
-
     formValidators[formName] = validator;
     validator.enableValidation();
   });
@@ -56,7 +46,7 @@ export const enableValidation = (config) => {
 
 enableValidation(config);
 
-/* ---------------------------- Section Instances --------------------------- */
+// Section Initialization
 
 const cardSection = new Section(
   {
@@ -75,126 +65,98 @@ const cardSection = new Section(
   `.${selectors.cardSection}`
 );
 
-/* --------------------------- User Info Instances -------------------------- */
+// User Info Initialization
 
 const userInfo = new UserInfo({
   nameSelector: ".profile__heading",
-  jobSelector: ".profile__description",
+  aboutSelector: ".profile__description",
 });
 
-/* ----------------------------- Popup Instances ---------------------------- */
+// Edit Profile Popup Initialization
 
 const editProfilePopup = new PopupWithForm(
   "#profile-edit-modal",
-  handleProfileEditSubmit
+  handleEditProfileSubmit
 );
+
+// Add Card Popup Initialization
 
 const addCardPopup = new PopupWithForm("#card-add-modal", handleCardAddSubmit);
 
-function handleImageClick(data) {
-  const imagePopup = new PopupWithImage("#preview-image-modal");
-  imagePopup.open(data.link, data.name);
-}
+// Image Popup Initialization
 
-/* -------------------------------------------------------------------------- */
-/*                               Initialization                               */
-/* -------------------------------------------------------------------------- */
+const imagePopup = new PopupWithImage("#preview-image-modal");
+
+/* ------------------------------ Method Calls ------------------------------ */
+
+// Section Invocation
 
 cardSection.renderItems(initialCards);
 
-editProfilePopup.setEventListeners();
-
-addCardPopup.setEventListeners();
+// User Info Invocation
 
 userInfo.setUserInfo({
   name: profileHeading.textContent,
-  job: profileDescription.textContent,
+  about: profileDescription.textContent,
 });
 
-/* -------------------------------------------------------------------------- */
-/*                                  Functions                                 */
-/* -------------------------------------------------------------------------- */
+// Edit Profile Popup Invocation
 
-// function fillProfileForm() {
-//   profileHeadingInput.value = profileHeading.textContent;
-//   profileDescriptionInput.value = profileDescription.textContent;
-// }
+editProfilePopup.setEventListeners();
 
-// function openProfileEditModal() {
-//   fillProfileForm();
-//   openPopup(profileEditModal);
-// }
+// Add Card Popup Invocation
 
-// function createCard(data) {
-//   const card = new Card(data, "#card-template");
-//   return card.getView();
-// }
+addCardPopup.setEventListeners();
 
-// function renderCard(data) {
-//   const cardElement = createCard(data);
-//   cardListEl.prepend(cardElement);
-// }
+// Image Popup Invocation
 
-/* -------------------------------------------------------------------------- */
-/*                               Event Handlers                               */
-/* -------------------------------------------------------------------------- */
+imagePopup.setEventListeners();
 
-function handleProfileEditSubmit(e) {
-  const name = profileHeadingInput.value;
-  const job = profileDescriptionInput.value;
-  UserInfo.setUserInfo({ name, job });
-  closePopup(profileEditModal);
+/* -------------------------------- Functions ------------------------------- */
+
+// Edit Profile Functions
+
+function fillProfileForm() {
+  profileHeadingInput.value = profileHeading.textContent;
+  profileDescriptionInput.value = profileDescription.textContent;
 }
 
-function handleCardAddSubmit(e) {
-  const name = e.target.title.value;
-  const link = e.target.link.value;
-  renderCard({ name, link });
-  e.target.reset();
-  closePopup(cardAddModal);
+/* ----------------------------- Event Handlers ----------------------------- */
+
+// Add Card Handlers
+
+function handleCardAddSubmit(data) {
+  cardSection.addItem(data);
+  addCardPopup.close();
   formValidators[cardAddForm.getAttribute("name")].resetValidation();
 }
 
-function handleOutsideClick(e, popup) {
-  if (e.target.classList.contains("modal")) {
-    closePopup(popup);
-  }
-  if (e.target.classList.contains("modal__close")) {
-    closePopup(popup);
-  }
+// Edit Profile Handlers
+
+function handleEditProfileSubmit(data) {
+  userInfo.setUserInfo(data);
+  editProfilePopup.close();
 }
 
-// function handleEscEvent(e) {
-//   if (e.key === "Escape") {
-//     const openedModal = document.querySelector(".modal_opened");
-//     closePopup(openedModal);
-//   }
-// }
+// Image Click Handlers
 
-// function handleImageClick(data) {
-//   imagePopup.openPopup(data.link, data.name);
-// }
+function handleImageClick(data) {
+  imagePopup.open(data);
+}
 
-/* -------------------------------------------------------------------------- */
-/*                               Event Listeners                              */
-/* -------------------------------------------------------------------------- */
+/* ----------------------------- Event Listeners ---------------------------- */
 
-// profileEditButton.addEventListener("click", openProfileEditModal);
+// Edit Profile Listeners
 
-// profileEditForm.addEventListener("submit", handleProfileEditSubmit);
+profileEditButton.addEventListener("click", () => {
+  editProfilePopup.open();
+  fillProfileForm();
+});
 
-// cardAddButton.addEventListener("click", () => openPopup(cardAddModal));
+// Add Card Listeners
 
-// cardAddForm.addEventListener("submit", handleCardAddSubmit);
+cardAddButton.addEventListener("click", () => {
+  addCardPopup.open();
+});
 
-// popups.forEach((popup) => {
-//   popup.addEventListener("mousedown", (e) => handleOutsideClick(e, popup));
-// });
-
-/* -------------------------------------------------------------------------- */
-/*                                    Loops                                   */
-/* -------------------------------------------------------------------------- */
-
-/* -------------------------------------------------------------------------- */
-/*                                   Exports                                  */
-/* -------------------------------------------------------------------------- */
+/* --------------------------------- Exports -------------------------------- */

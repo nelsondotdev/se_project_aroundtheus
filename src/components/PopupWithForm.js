@@ -1,44 +1,37 @@
-/* -------------------------------------------------------------------------- */
-/*                                   Imports                                  */
-/* -------------------------------------------------------------------------- */
+/* --------------------------------- Imports -------------------------------- */
 
 import Popup from "./Popup.js";
 
-/* -------------------------------------------------------------------------- */
-/*                                    Class                                   */
-/* -------------------------------------------------------------------------- */
+/* ---------------------------------- Class --------------------------------- */
 
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, submitHandler) {
     super(popupSelector);
     this._submitHandler = submitHandler;
-    this._formElement = this._popupElement.querySelector(".modal__form");
+    this._popupForm = this._popupElement.querySelector(".modal__form");
+    this._inputList = this._popupForm.querySelectorAll(".modal__form-input");
   }
 
   _getInputValues() {
-    const inputList = this._formElement.querySelectorAll(".modal__form-input");
     const inputValues = {};
-    inputList.forEach((input) => {
+    this._inputList.forEach((input) => {
       inputValues[input.name] = input.value;
     });
     return inputValues;
   }
 
-  setEventListeners() {
-    super.setEventListeners();
-    this._formElement.addEventListener("submit", (e) => {
-      e.preventDefault();
-      this._submitHandler(this._getInputValues());
-      this.close();
-    });
+  close() {
+    this._popupForm.reset();
+    super.close();
   }
 
-  close() {
-    this._formElement.reset();
-    super.close();
+  setEventListeners() {
+    this._popupForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this._submitHandler(this._getInputValues());
+    });
+    super.setEventListeners();
   }
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                   Exports                                  */
-/* -------------------------------------------------------------------------- */
+/* --------------------------------- Exports -------------------------------- */

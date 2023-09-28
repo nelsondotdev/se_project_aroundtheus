@@ -1,16 +1,8 @@
-/* -------------------------------------------------------------------------- */
-/*                                   Imports                                  */
-/* -------------------------------------------------------------------------- */
+/* --------------------------------- Imports -------------------------------- */
 
-/* -------------------------------------------------------------------------- */
-/*                                  Elements                                  */
-/* -------------------------------------------------------------------------- */
+/* ---------------------------------- Class --------------------------------- */
 
-/* -------------------------------------------------------------------------- */
-/*                                    Class                                   */
-/* -------------------------------------------------------------------------- */
-
-class Card {
+export default class Card {
   constructor(data, cardSelector, handleImageClick) {
     this._name = data.name;
     this._link = data.link;
@@ -54,17 +46,12 @@ class Card {
   getView() {
     this._element = this._getCardElement();
     this._setEventListeners();
-
-    this._element.querySelector(".card__image").src = this._link;
-    this._element.querySelector(".card__image").alt = this._name;
     this._element.querySelector(".card__title").textContent = this._name;
+    this._element.querySelector(".card__image").alt = this._name;
+    this._element.querySelector(".card__image").src = this._link;
 
     return this._element;
   }
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                   Exports                                  */
-/* -------------------------------------------------------------------------- */
-
-export default Card;
+/* --------------------------------- Exports -------------------------------- */

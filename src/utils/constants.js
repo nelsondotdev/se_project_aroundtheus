@@ -1,12 +1,8 @@
-/* -------------------------------------------------------------------------- */
-/*                                   Imports                                  */
-/* -------------------------------------------------------------------------- */
+/* --------------------------------- Imports -------------------------------- */
 
-/* -------------------------------------------------------------------------- */
-/*                                  Elements                                  */
-/* -------------------------------------------------------------------------- */
+/* -------------------------------- Elements -------------------------------- */
 
-/* ---------------------------------- Cards --------------------------------- */
+// Cards
 
 export const initialCards = [
   {
@@ -35,26 +31,7 @@ export const initialCards = [
   },
 ];
 
-/* ---------------------------- Generic Elements ---------------------------- */
-
-export const popups = document.querySelectorAll(".modal");
-
-export const selectors = {
-  cardSection: "cards__list",
-  cardTemplate: "#card-template",
-  previewModal: "#preview-image-modal",
-};
-
-export const config = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__form-input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error",
-};
-
-/* ---------------------------- Profile Elements ---------------------------- */
+// Profile Elements
 
 export const profileEditForm = document.forms["edit-profile-form"];
 export const profileEditButton = document.querySelector("#profile-edit-button");
@@ -72,18 +49,16 @@ export const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
-/* ------------------------------ Card Elements ----------------------------- */
+// Card Elements
 
 export const cardAddForm = document.forms["add-card-form"];
 export const cardAddButton = document.querySelector("#card-add-button");
 export const cardAddModal = document.querySelector("#card-add-modal");
 export const closeCardAddModal = cardAddModal.querySelector(".modal__close");
 export const cardListEl = document.querySelector(".cards__list");
-export const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
 export const cardSelector = "#card-template";
 
-/* ------------------------- Preview Image Elements ------------------------- */
+// Preview Image Elements
 
 export const previewImageModal = document.querySelector("#preview-image-modal");
 export const previewImageElement = document.querySelector(
@@ -96,6 +71,4 @@ export const closePreviewImageModal = document.querySelector(
   ".modal__close_type_preview"
 );
 
-/* -------------------------------------------------------------------------- */
-/*                                   Exports                                  */
-/* -------------------------------------------------------------------------- */
+/* --------------------------------- Exports -------------------------------- */
