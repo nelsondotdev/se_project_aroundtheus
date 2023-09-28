@@ -11,7 +11,7 @@ import UserInfo from "../components/UserInfo.js";
 
 // Utilities and constants
 
-import { selectors, config, cardTemplate } from "../utils/utils.js";
+import { selectors, config } from "../utils/utils.js";
 
 import {
   initialCards,
@@ -52,14 +52,9 @@ const cardSection = new Section(
   {
     items: initialCards,
     renderer: (data) => {
-      const cardElement = new Card(
-        data,
-        selectors.cardTemplate,
-        handleImageClick
-      );
-      const cardView = cardElement.getView();
-      cardSection.addItem(cardView);
-      return cardView;
+      const cardElement = createCard(data);
+      cardSection.addItem(cardElement);
+      return cardElement;
     },
   },
   `.${selectors.cardSection}`
@@ -91,7 +86,7 @@ const imagePopup = new PopupWithImage("#preview-image-modal");
 
 // Section Invocation
 
-cardSection.renderItems(initialCards);
+cardSection.renderItems();
 
 // User Info Invocation
 
@@ -117,8 +112,16 @@ imagePopup.setEventListeners();
 // Edit Profile Functions
 
 function fillProfileForm() {
-  profileHeadingInput.value = profileHeading.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
+  const profileInfo = userInfo.getUserInfo();
+  profileHeadingInput.value = profileInfo.name;
+  profileDescriptionInput.value = profileInfo.about;
+}
+
+// Create Card Functions
+
+function createCard(data) {
+  const cardElement = new Card(data, selectors.cardTemplate, handleImageClick);
+  return cardElement.getView();
 }
 
 /* ----------------------------- Event Handlers ----------------------------- */
@@ -126,7 +129,8 @@ function fillProfileForm() {
 // Add Card Handlers
 
 function handleCardAddSubmit(data) {
-  cardSection.addItem(data);
+  const cardElement = createCard(data);
+  cardSection.addItem(cardElement);
   addCardPopup.close();
   formValidators[cardAddForm.getAttribute("name")].resetValidation();
 }
