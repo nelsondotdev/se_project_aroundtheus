@@ -2,7 +2,7 @@
 
 /* ---------------------------------- Class --------------------------------- */
 
-export default class UserInfo {
+class UserInfo {
   constructor({ nameSelector, aboutSelector }) {
     this._nameElement = document.querySelector(nameSelector);
     this._aboutElement = document.querySelector(aboutSelector);
@@ -22,3 +22,5 @@ export default class UserInfo {
 }
 
 /* --------------------------------- Exports -------------------------------- */
+
+export default UserInfo;

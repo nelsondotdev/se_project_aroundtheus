@@ -4,7 +4,7 @@
 
 // Cards
 
-export const initialCards = [
+const initialCards = [
   {
     name: "Yosemite Valley",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
@@ -33,42 +33,62 @@ export const initialCards = [
 
 // Profile Elements
 
-export const profileEditForm = document.forms["edit-profile-form"];
-export const profileEditButton = document.querySelector("#profile-edit-button");
-export const profileEditModal = document.querySelector("#profile-edit-modal");
-export const closeProfileEditModal =
-  profileEditModal.querySelector(".modal__close");
-export const profileHeading = document.querySelector(".profile__heading");
-export const profileDescription = document.querySelector(
-  ".profile__description"
-);
-export const profileHeadingInput = document.querySelector(
-  "#profile-heading-input"
-);
-export const profileDescriptionInput = document.querySelector(
+const profileEditForm = document.forms["edit-profile-form"];
+const profileEditButton = document.querySelector("#profile-edit-button");
+const profileEditModal = document.querySelector("#profile-edit-modal");
+const closeProfileEditModal = profileEditModal.querySelector(".modal__close");
+const profileHeading = document.querySelector(".profile__heading");
+const profileDescription = document.querySelector(".profile__description");
+const profileHeadingInput = document.querySelector("#profile-heading-input");
+const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
 // Card Elements
 
-export const cardAddForm = document.forms["add-card-form"];
-export const cardAddButton = document.querySelector("#card-add-button");
-export const cardAddModal = document.querySelector("#card-add-modal");
-export const closeCardAddModal = cardAddModal.querySelector(".modal__close");
-export const cardListEl = document.querySelector(".cards__list");
-export const cardSelector = "#card-template";
+const cardAddForm = document.forms["add-card-form"];
+const cardAddButton = document.querySelector("#card-add-button");
+const cardAddModal = document.querySelector("#card-add-modal");
+const closeCardAddModal = cardAddModal.querySelector(".modal__close");
+const cardListEl = document.querySelector(".cards__list");
+const cardSelector = "#card-template";
 
 // Preview Image Elements
 
-export const previewImageModal = document.querySelector("#preview-image-modal");
-export const previewImageElement = document.querySelector(
-  ".modal__preview-image"
-);
-export const previewTitleElement = document.querySelector(
-  ".modal__image-title"
-);
-export const closePreviewImageModal = document.querySelector(
+const previewImageModal = document.querySelector("#preview-image-modal");
+const previewImageElement = document.querySelector(".modal__preview-image");
+const previewTitleElement = document.querySelector(".modal__image-title");
+const closePreviewImageModal = document.querySelector(
   ".modal__close_type_preview"
 );
 
 /* --------------------------------- Exports -------------------------------- */
+
+export {
+  // Cards
+  initialCards,
+
+  // Profile Elements
+  profileEditForm,
+  profileEditButton,
+  profileEditModal,
+  closeProfileEditModal,
+  profileHeading,
+  profileDescription,
+  profileHeadingInput,
+  profileDescriptionInput,
+
+  // Card Elements
+  cardAddForm,
+  cardAddButton,
+  cardAddModal,
+  closeCardAddModal,
+  cardListEl,
+  cardSelector,
+
+  // Preview Image Elements
+  previewImageModal,
+  previewImageElement,
+  previewTitleElement,
+  closePreviewImageModal,
+};

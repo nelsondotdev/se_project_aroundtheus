@@ -2,8 +2,8 @@
 
 // Components
 
-import FormValidator from "../components/formvalidator.js";
-import Card from "../components/card.js";
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -32,9 +32,9 @@ import "./index.css";
 
 // Form Validator Initialization
 
-export const formValidators = {};
+const formValidators = {};
 
-export const enableValidation = (config) => {
+const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formEl) => {
     const validator = new FormValidator(config, formEl);
@@ -164,3 +164,9 @@ cardAddButton.addEventListener("click", () => {
 });
 
 /* --------------------------------- Exports -------------------------------- */
+
+export {
+  // Form Validator Initialization
+  formValidators,
+  enableValidation,
+};

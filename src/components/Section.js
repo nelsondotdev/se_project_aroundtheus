@@ -2,7 +2,7 @@
 
 /* ---------------------------------- Class --------------------------------- */
 
-export default class Section {
+class Section {
   constructor({ items, renderer }, selector) {
     this._items = items;
     this._renderer = renderer;
@@ -21,3 +21,5 @@ export default class Section {
 }
 
 /* --------------------------------- Exports -------------------------------- */
+
+export default Section;

@@ -4,13 +4,13 @@
 
 // DOM Elements
 
-export const selectors = {
+const selectors = {
   cardSection: "cards__list",
   cardTemplate: "#card-template",
   previewModal: "#preview-image-modal",
 };
 
-export const config = {
+const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__form-input",
   submitButtonSelector: ".modal__button",
@@ -19,7 +19,14 @@ export const config = {
   errorClass: "modal__error",
 };
 
-export const cardTemplate =
+const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 
 /* --------------------------------- Exports -------------------------------- */
+
+export {
+  // DOM Elements
+  selectors,
+  config,
+  cardTemplate,
+};

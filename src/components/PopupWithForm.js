@@ -4,7 +4,7 @@ import Popup from "./Popup.js";
 
 /* ---------------------------------- Class --------------------------------- */
 
-export default class PopupWithForm extends Popup {
+class PopupWithForm extends Popup {
   constructor(popupSelector, submitHandler) {
     super(popupSelector);
     this._submitHandler = submitHandler;
@@ -35,3 +35,5 @@ export default class PopupWithForm extends Popup {
 }
 
 /* --------------------------------- Exports -------------------------------- */
+
+export default PopupWithForm;

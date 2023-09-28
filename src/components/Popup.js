@@ -2,7 +2,7 @@
 
 /* ---------------------------------- Class --------------------------------- */
 
-export default class Popup {
+class Popup {
   constructor(popupSelector) {
     this._popupElement = document.querySelector(popupSelector);
     this._handleEscEvent = this._handleEscEvent.bind(this);
@@ -41,3 +41,5 @@ export default class Popup {
 }
 
 /* --------------------------------- Exports -------------------------------- */
+
+export default Popup;
