@@ -6,13 +6,8 @@
 /*                                  Elements                                  */
 /* -------------------------------------------------------------------------- */
 
-// const previewImageModal = document.querySelector("#preview-image-modal");
-// const previewImageElement = document.querySelector(".modal__preview-image");
-// const previewTitleElement = document.querySelector(".modal__image-title");
-// const ESC_KEYCODE = 27;
-
 /* -------------------------------------------------------------------------- */
-/*                                   Classes                                  */
+/*                                    Class                                   */
 /* -------------------------------------------------------------------------- */
 
 class Card {
@@ -33,13 +28,16 @@ class Card {
   }
 
   _setEventListeners() {
-    this._likeButton = this._element?.querySelector(".card__like-button");
-    this._deleteCard = this._element?.querySelector(".card__trash-button");
-    this._cardImage = this._element?.querySelector(".card__image");
-
-    this._likeButton?.addEventListener("click", () => this._handleLikeIcon());
-    this._deleteCard?.addEventListener("click", () => this._handleDeleteCard());
-    this._cardImage?.addEventListener("click", () => {
+    this._likeButton = this._element.querySelector(".card__like-button");
+    this._deleteCard = this._element.querySelector(".card__trash-button");
+    this._cardImage = this._element.querySelector(".card__image");
+    this._likeButton.addEventListener("click", () => {
+      this._handleLikeIcon();
+    });
+    this._deleteCard.addEventListener("click", () => {
+      this._handleDeleteCard();
+    });
+    this._cardImage.addEventListener("click", () => {
       this._handleImageClick({ name: this._name, link: this._link });
     });
   }

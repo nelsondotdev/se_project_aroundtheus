@@ -3,10 +3,9 @@
 /* -------------------------------------------------------------------------- */
 
 import Popup from "./Popup.js";
-import { openPopup, closePopup } from "../pages/index.js";
 
 /* -------------------------------------------------------------------------- */
-/*                                   Classes                                  */
+/*                                    Class                                   */
 /* -------------------------------------------------------------------------- */
 
 export default class PopupWithImage extends Popup {
@@ -16,10 +15,11 @@ export default class PopupWithImage extends Popup {
     this._caption = this._popupElement.querySelector(".modal__image-title");
   }
 
-  open(image, caption) {
-    this._image.src = image;
-    this._image.alt = caption;
-    this._caption.textContent = caption;
+  open({ link, name }) {
+    this._popupElement.querySelector(".modal__image-title").textContent = name;
+    const image = this._popupElement.querySelector(".modal__preview-image");
+    image.src = link;
+    image.alt = name;
     super.open();
   }
 }

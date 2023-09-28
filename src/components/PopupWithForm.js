@@ -5,7 +5,7 @@
 import Popup from "./Popup.js";
 
 /* -------------------------------------------------------------------------- */
-/*                                   Classes                                  */
+/*                                    Class                                   */
 /* -------------------------------------------------------------------------- */
 
 export default class PopupWithForm extends Popup {
@@ -34,8 +34,8 @@ export default class PopupWithForm extends Popup {
   }
 
   close() {
-    super.close();
     this._formElement.reset();
+    super.close();
   }
 }
 

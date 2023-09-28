@@ -8,6 +8,7 @@ import FormValidator from "../components/formvalidator.js";
 import Card from "../components/card.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 
 /* ------------------------- Utilities and constants ------------------------ */
@@ -15,6 +16,7 @@ import UserInfo from "../components/UserInfo.js";
 import {
   initialCards,
   selectors,
+  config,
   profileEditModal,
   profileHeadingInput,
   profileHeading,
@@ -36,18 +38,6 @@ import "./index.css";
 /* -------------------------------------------------------------------------- */
 
 /* ------------------------ Form Validator Activation ----------------------- */
-
-export const config = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__form-input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error",
-};
-
-export const profileEditForm = document.forms["edit-profile-form"];
-export const cardAddForm = document.forms["add-card-form"];
 
 /* ------------------------ Form Validator Instances ------------------------ */
 
@@ -77,7 +67,9 @@ const cardSection = new Section(
         selectors.cardTemplate,
         handleImageClick
       );
-      return cardElement.getView();
+      const cardView = cardElement.getView();
+      cardSection.addItem(cardView);
+      return cardView;
     },
   },
   `.${selectors.cardSection}`
@@ -96,10 +88,8 @@ const editProfilePopup = new PopupWithForm(
   "#profile-edit-modal",
   handleProfileEditSubmit
 );
-editProfilePopup.setEventListeners();
 
 const addCardPopup = new PopupWithForm("#card-add-modal", handleCardAddSubmit);
-addCardPopup.setEventListeners();
 
 function handleImageClick(data) {
   const imagePopup = new PopupWithImage("#preview-image-modal");
@@ -112,46 +102,44 @@ function handleImageClick(data) {
 
 cardSection.renderItems(initialCards);
 
+editProfilePopup.setEventListeners();
+
+addCardPopup.setEventListeners();
+
+userInfo.setUserInfo({
+  name: profileHeading.textContent,
+  job: profileDescription.textContent,
+});
+
 /* -------------------------------------------------------------------------- */
 /*                                  Functions                                 */
 /* -------------------------------------------------------------------------- */
 
-function fillProfileForm() {
-  profileHeadingInput.value = profileHeading.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
-}
+// function fillProfileForm() {
+//   profileHeadingInput.value = profileHeading.textContent;
+//   profileDescriptionInput.value = profileDescription.textContent;
+// }
 
-function openProfileEditModal() {
-  fillProfileForm();
-  openPopup(profileEditModal);
-}
+// function openProfileEditModal() {
+//   fillProfileForm();
+//   openPopup(profileEditModal);
+// }
 
-function openPopup(data) {
-  data.classList.add("modal_opened");
-  document.addEventListener("keyup", handleEscEvent);
-}
+// function createCard(data) {
+//   const card = new Card(data, "#card-template");
+//   return card.getView();
+// }
 
-function closePopup(data) {
-  data.classList.remove("modal_opened");
-  document.removeEventListener("keyup", handleEscEvent);
-}
-
-function createCard(data) {
-  const card = new Card(data, "#card-template");
-  return card.getView();
-}
-
-function renderCard(data) {
-  const cardElement = createCard(data);
-  cardListEl.prepend(cardElement);
-}
+// function renderCard(data) {
+//   const cardElement = createCard(data);
+//   cardListEl.prepend(cardElement);
+// }
 
 /* -------------------------------------------------------------------------- */
 /*                               Event Handlers                               */
 /* -------------------------------------------------------------------------- */
 
 function handleProfileEditSubmit(e) {
-  e.preventDefault();
   const name = profileHeadingInput.value;
   const job = profileDescriptionInput.value;
   UserInfo.setUserInfo({ name, job });
@@ -159,7 +147,6 @@ function handleProfileEditSubmit(e) {
 }
 
 function handleCardAddSubmit(e) {
-  e.preventDefault();
   const name = e.target.title.value;
   const link = e.target.link.value;
   renderCard({ name, link });
@@ -177,12 +164,12 @@ function handleOutsideClick(e, popup) {
   }
 }
 
-function handleEscEvent(e) {
-  if (e.key === "Escape") {
-    const openedModal = document.querySelector(".modal_opened");
-    closePopup(openedModal);
-  }
-}
+// function handleEscEvent(e) {
+//   if (e.key === "Escape") {
+//     const openedModal = document.querySelector(".modal_opened");
+//     closePopup(openedModal);
+//   }
+// }
 
 // function handleImageClick(data) {
 //   imagePopup.openPopup(data.link, data.name);
@@ -192,28 +179,22 @@ function handleEscEvent(e) {
 /*                               Event Listeners                              */
 /* -------------------------------------------------------------------------- */
 
-profileEditButton.addEventListener("click", openProfileEditModal);
+// profileEditButton.addEventListener("click", openProfileEditModal);
 
-profileEditForm.addEventListener("submit", handleProfileEditSubmit);
+// profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
-cardAddButton.addEventListener("click", () => openPopup(cardAddModal));
+// cardAddButton.addEventListener("click", () => openPopup(cardAddModal));
 
-cardAddForm.addEventListener("submit", handleCardAddSubmit);
+// cardAddForm.addEventListener("submit", handleCardAddSubmit);
 
-popups.forEach((popup) => {
-  popup.addEventListener("mousedown", (e) => handleOutsideClick(e, popup));
-});
+// popups.forEach((popup) => {
+//   popup.addEventListener("mousedown", (e) => handleOutsideClick(e, popup));
+// });
 
 /* -------------------------------------------------------------------------- */
 /*                                    Loops                                   */
 /* -------------------------------------------------------------------------- */
 
-initialCards.forEach((data) => {
-  renderCard(data, cardListEl);
-});
-
 /* -------------------------------------------------------------------------- */
 /*                                   Exports                                  */
 /* -------------------------------------------------------------------------- */
-
-export { openPopup, closePopup };
