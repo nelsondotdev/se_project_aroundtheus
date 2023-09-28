@@ -15,8 +15,6 @@ import { selectors, config } from "../utils/utils.js";
 
 import {
   initialCards,
-  profileHeadingInput,
-  profileDescriptionInput,
   cardAddForm,
   profileEditButton,
   cardAddButton,
@@ -104,8 +102,7 @@ imagePopup.setEventListeners();
 
 function fillProfileForm() {
   const profileInfo = userInfo.getUserInfo();
-  profileHeadingInput.value = profileInfo.name;
-  profileDescriptionInput.value = profileInfo.about;
+  editProfilePopup.setInputValues(profileInfo);
 }
 
 // Create Card Functions
