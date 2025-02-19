@@ -1,6 +1,6 @@
 # Project 3: Around The U.S.
 
-Around The U.S. is the third project in the Software Engineer program at Practicum. It was created using HTML, CSS, and Grid Layout, based on the design brief.
+Around The U.S. is the third project in the Software Engineer program at TripleTen. It was created using HTML, CSS, and Grid Layout, based on the design brief.
 
 ## Project features
 
